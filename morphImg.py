@@ -1,4 +1,5 @@
 # Color-based segmentation in Python using OpenCV
+# Morphological Transformations
 
 import cv2
 import numpy as np
@@ -21,29 +22,27 @@ while True:
     #Final result
     finalImg = cv2.bitwise_and(frame,frame,mask=mask)
 
-    #Initializing filter
-    kernel = np.ones((15,15),np.float32)/255
+    #Setting up the kernel for transformation
+    kernel = np.ones((5,5),np.uint8)
 
-    #Smooth the image
-    smoothImg = cv2.filter2D(finalImg,-1,kernel)
+    #Erosion and Dilation
+    erosion = cv2.erode(mask, kernel, iterations=1)
+    dilation = cv2.dilate(mask,kernel, iterations=2)
 
-    #Adding Gaussian Blur to image
-    blurImg = cv2.GaussianBlur(finalImg, (15,15),0)
+    opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+    closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
 
-    #Adding Median Blur
-    medblurImg = cv2.medianBlur(finalImg,15)
-
-    #Adding Bilateral Blur
-    bilblurImg = cv2.bilateralFilter(finalImg,15,75,75)
-
+    #Applying dilated mask to original
+    #dilImg = cv2.bitwise_and(frame,frame,mask=dilation)
+    #Can also use tophat and blackhat
     
     cv2.imshow('frame',frame)
-    cv2.imshow('mask',mask)
-    cv2.imshow('Median',medblurImg)
-    cv2.imshow('Bilateral',bilblurImg)
     cv2.imshow('Result', finalImg)
-    cv2.imshow('Smoothed',smoothImg)
-    cv2.imshow('Blurred',blurImg)
+    cv2.imshow('erosion',erosion)
+    cv2.imshow('dilation',dilation)
+    cv2.imshow('opening',opening)
+    cv2.imshow('closing',closing)
+    #cv2.imshow('dilImg',dilImg)
     
     k = cv2.waitKey(5) & 0xFF
     if k == 27:
