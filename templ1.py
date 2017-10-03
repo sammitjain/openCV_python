@@ -8,7 +8,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 testImg = cv2.imread('famous_people.jpg')
-testSample = cv2.imread('gandhi_big.jpg')
+testSample = cv2.imread('gandhi.jpg')
 #testSample = cv2.imread('gandhi_big.jpg')
 #Doesn't work with the a scaled image, need to try something different for that. 
 #cv2.imshow('Original',testImg)
