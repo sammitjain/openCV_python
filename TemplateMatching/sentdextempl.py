@@ -22,6 +22,5 @@ for pt in zip(*loc[::-1]):
 
 
 cv2.imshow('DETECTED',mainImg)
-
-    
+cv2.imshow('TEMPLATE',tempImg)
 

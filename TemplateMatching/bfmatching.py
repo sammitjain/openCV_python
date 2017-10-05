@@ -7,8 +7,8 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-tempImg = cv2.imread('bitsgoanew1.jpg',0); #Template Image
-mainImg = cv2.imread('bitsgoanew1_skewed.jpg',0) #Main Image
+tempImg = cv2.imread('bitsgoamain.jpg',0); #Template Image
+mainImg = cv2.imread('bitsgoamain_skewed.jpg',0) #Main Image
 
 #Starting the SIFT detector
 
@@ -36,4 +36,8 @@ resImg = cv2.drawMatches(tempImg,kp1,mainImg,kp2,matches[:20], tempImg, flags=2)
 
 plt.imshow(resImg)
 
+plt.show()
+
+cv2.imshow('Normal',tempImg)
+cv2.imshow('Skewed',mainImg)
 plt.show()
